@@ -1,15 +1,29 @@
 {% extends 'todo/base.html' %} {% block content %}
-<form action="/add/" method="POST">
-  {% csrf_token %} {{form.as_p}}
-  <input type="submit" value="ADD" />
-</form>
 
-<ul>
-  {% for todo in todos %}
+<div class="container">
+  <div>
+    <form action="/add/" method="POST">
+      {% csrf_token %} 
+      {% comment %} {% csrf_token %} bu post yaparken sifreleme için {% endcomment %}
+      
+      {{form.as_p}}
 
-  <li>{{todo}}</li>
+      {% comment %} {{form.as_p}} bu ise yanyana getirmek için {% endcomment %}
+      <input type="submit" value="ADD" />
+    </form>
+  </div>
 
-  {% endfor %}
-</ul>
+
+  <ul>
+    {% for todo in todos %}
+    <li>
+        <a href="{ % url 'update' todo.id % }">
+            {{todo}}
+        </a>
+       </li>
+
+    {% endfor %}
+  </ul>
+</div>
 
 {% endblock content %}
